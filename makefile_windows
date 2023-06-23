@@ -1,0 +1,61 @@
+#
+################################################################################
+#
+#   File: makefile
+#
+#   File Released under licence GPL-3.0-or-later.
+#   You should have received a copy of the GNU General Public License
+#   along with ZR.  If not, see <https://www.gnu.org/licenses/>.
+#
+#   Windows/MinGW version of makefile for use with ace2bmp
+#
+#   See README.MAKEFILE.
+#
+#   When used to process compressed *.ace files, a temporary file
+#   unzlib.tmp may be left in the user directory.  This can be deleated.
+#
+#    HOMEPATH = /Users/user_name
+#    PATH     = [Path of bin files]
+#
+#    mingw32-make -f makefile
+#      or possibly as a minumum:
+#    gcc ace2bmp.c -o ace2bmp -DWINDOWS -lz
+#
+################################################################################
+#
+ifeq ($(OS),Windows_NT)
+  SHELL := bash.exe
+endif
+
+MinGW64_HOME = C:/opt/mingw64
+
+#  Specify Compiler and Compiler Options
+
+CC       = gcc
+
+CFLAGS  += -m64 -march=native
+CFLAGS  += -Wall -pedantic
+CFLAGS  += -Wextra
+CFLAGS  += -Wno-unused-variable
+CFLAGS  += -I$(MinGW64_HOME)/include
+CFLAGS  += -DWINDOWS
+
+#  Specify libraries
+
+LDFLAGS += -lmingw32 -lz
+
+# Which suffixes to process
+
+.SUFFIXES:
+.SUFFIXES: .c .h .o
+
+#  Targets that are not the name of a file
+.PHONEY: clean
+
+#  Makefile targets:
+
+ace2bmp: ace2bmp.c read_ace.c token_b.c token.c struct.h makefile rgb2bmp.c
+	$(CC) ace2bmp.c -o ace2bmp $(CFLAGS) $(LDFLAGS)
+
+clean:
+	rm -f ace2bmp *.o *~

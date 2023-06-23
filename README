@@ -1,0 +1,22 @@
+Program ace2bmp
+===============
+
+    This program is designed to convert 'ace' format files, used to store texture images for MSTS, the Microsoft Train Simulator, and other 3-D graphics programs, into bitmap format files.  
+    
+    The program has been developed using GNU/linux.  The shell command to compile the program is then just:
+       make
+    The program can then be run with the commands:
+      cd tests
+      ../ace2bmp 12_AU_Ironbark_A.ace
+    This will generate the file "12_AU_Ironbark_A.ace" in teh current directory.  Alternatively:
+      ../ace2bmp 12_AU_Ironbark_A.ace NewFileName.bmp
+    will put the output in the new file
+    
+    The directory 'tests' contains examples of the three other 'ace' sub-formats.
+    
+Windows
+=======
+
+     The makefile "make_windows" can be used in the same way to compile the program for windows using the MinGW-W64 windows software and a normal windows shell.
+     
+     
